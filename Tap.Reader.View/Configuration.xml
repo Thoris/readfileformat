@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <lines>
+    <line isHeader="true" offset="0">
+      <parameters>
+        <parameter type="position">
+          <name>teste1</name>
+          <type>string</type>
+          <initial>1</initial>
+          <size>2</size>
+          <order>1</order>
+        </parameter>
+        <parameter type="position">
+          <name>teste2</name>
+          <type>string</type>
+          <initial>3</initial>
+          <size>2</size>
+          <order>3</order>  
+        </parameter>
+        <parameter type="position">
+          <name>teste3</name>
+          <type>int</type>
+          <initial>5</initial>
+          <size>2</size>
+          <order>2</order>
+        </parameter>
+      </parameters>
+    </line>
+    
+    <line>
+      <parameters>
+        <parameter type="position">
+          <name>teste1</name>
+          <type>string</type>
+          <initial>1</initial>
+          <size>2</size>
+        </parameter>
+        <parameter type="position">
+          <name>teste2</name>
+          <type>string</type>
+          <initial>3</initial>
+          <size>2</size>
+        </parameter>
+        <parameter type="position">
+          <name>teste3</name>
+          <type>int</type>
+          <initial>5</initial>
+          <size>2</size>
+        </parameter>
+      </parameters>
+    </line>
+
+
+    <line isFooter ="true" offset="0">
+      <parameters>
+        <parameter type="divisor">
+          <name>teste5</name>
+          <type>int</type>
+          <divisor>|</divisor>
+          <position>1</position>
+        </parameter>
+        <parameter type="divisor">
+          <name>teste6</name>
+          <type>int</type>
+          <divisor>|</divisor>
+          <position>2</position>
+        </parameter>
+      </parameters>
+    </line>
+    
+    
+  </lines>
+</configuration>
