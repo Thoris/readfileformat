@@ -13,6 +13,7 @@ namespace Tap.Reader.Core.Reading.Results
         public IList<ParameterValue> Parameters { get; set; }
         public string Line { get; set; }
         public int LineNumber { get; set; }
+        public string Name { get; set; }            
 
         #endregion
 

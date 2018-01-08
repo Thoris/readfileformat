@@ -76,9 +76,34 @@ namespace Tap.Reader.Core.Configuration
                 else if (string.Compare(xmlConfig.Attributes[x].Name, LineConfiguration.TypeOffSet, true) == 0)
                 {
                     line.LineOffset = int.Parse(value);
-                    break;
+                }
+                else if (string.Compare(xmlConfig.Attributes[x].Name, LineConfiguration.KeyName, true) == 0)
+                {
+                    line.Name = value;
                 }
             }
+
+
+            XmlNodeList conditionsXml = xmlConfig.GetElementsByTagName(Conditions.Condition.ListName);
+            if (conditionsXml != null && conditionsXml.Count > 0)
+            {
+                for (int c = 0; c < conditionsXml.Count; c++)
+                {
+                    XmlElement parametersXml = (XmlElement)conditionsXml[c];
+
+                    XmlNodeList xmlParameter = parametersXml.GetElementsByTagName(Conditions.Condition.EntryName);
+
+                    if (xmlParameter != null && xmlParameter.Count > 0)
+                    {
+                        for (int i = 0; i < xmlParameter.Count; i++)
+                        {
+                            line.Conditions.Add (ReadConditionConfiguration(configurationFile, xmlParameter[i]));                            
+                        }
+                    }
+                }
+            }
+
+
 
 
 
@@ -88,11 +113,6 @@ namespace Tap.Reader.Core.Configuration
                 for (int c = 0; c < linesXml.Count; c++)
                 {
                     XmlElement parametersXml = (XmlElement)linesXml[c];
-
-
-
-
-
 
                     XmlNodeList xmlParameter = parametersXml.GetElementsByTagName(Parameters.BaseParameter.EntryName);
 
@@ -202,6 +222,40 @@ namespace Tap.Reader.Core.Configuration
 
 
             return parameter;
+        }
+        private Conditions.Condition ReadConditionConfiguration(string configurationFile, XmlNode node)
+        {
+            Conditions.Condition condition = new Conditions.Condition();
+
+            XmlElement element = (XmlElement)node;
+
+            XmlNodeList xmlSize = element.GetElementsByTagName(Conditions.Condition.KeySize);
+            if (xmlSize != null && xmlSize.Count > 0)
+            {
+                condition.Size = int.Parse (xmlSize[0].InnerText);
+            }
+            XmlNodeList xmlStart = element.GetElementsByTagName(Conditions.Condition.KeyStart);
+            if (xmlStart != null && xmlStart.Count > 0)
+            {
+                condition.Start = int.Parse (xmlStart[0].InnerText);
+            }
+            XmlNodeList xmlValues = element.GetElementsByTagName(Conditions.Condition.ListValues);
+            if (xmlValues != null && xmlValues.Count > 0)
+            {
+                XmlElement elementValues = (XmlElement)xmlValues[0];
+
+                XmlNodeList xmlData = elementValues.GetElementsByTagName(Conditions.Condition.EntryValue);
+
+                if (xmlData != null && xmlData.Count > 0)
+                {
+                    for (int c=0; c < xmlData.Count; c++)
+                    {
+                        condition.Values.Add(xmlData[c].InnerText);
+                    }
+                }
+            }
+
+            return condition;
         }
 
         #endregion

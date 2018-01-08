@@ -48,6 +48,7 @@
             this.pnlFileDescription = new System.Windows.Forms.Panel();
             this.lblFileName = new System.Windows.Forms.Label();
             this.livProperties = new System.Windows.Forms.ListView();
+            this.clmPropIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmPropName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmPropType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmPropPos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,6 +57,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pnlProperties = new System.Windows.Forms.Panel();
             this.txtLine = new System.Windows.Forms.TextBox();
+            this.lblLineName = new System.Windows.Forms.Label();
             this.livLog = new System.Windows.Forms.ListView();
             this.clmType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmDateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,6 +72,7 @@
             this.mnuLoadFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.pfdFile = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitBase)).BeginInit();
             this.splitBase.Panel1.SuspendLayout();
             this.splitBase.Panel2.SuspendLayout();
@@ -133,7 +136,7 @@
             this.splitProperties.Panel2.Controls.Add(this.label1);
             this.splitProperties.Panel2.Controls.Add(this.pnlProperties);
             this.splitProperties.Size = new System.Drawing.Size(733, 321);
-            this.splitProperties.SplitterDistance = 423;
+            this.splitProperties.SplitterDistance = 354;
             this.splitProperties.TabIndex = 0;
             // 
             // splitter2
@@ -141,7 +144,7 @@
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitter2.Location = new System.Drawing.Point(0, 254);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(423, 3);
+            this.splitter2.Size = new System.Drawing.Size(354, 3);
             this.splitter2.TabIndex = 4;
             this.splitter2.TabStop = false;
             // 
@@ -150,7 +153,7 @@
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(0, 101);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(423, 3);
+            this.splitter1.Size = new System.Drawing.Size(354, 3);
             this.splitter1.TabIndex = 3;
             this.splitter1.TabStop = false;
             // 
@@ -161,7 +164,7 @@
             this.pnlRecord.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlRecord.Location = new System.Drawing.Point(0, 101);
             this.pnlRecord.Name = "pnlRecord";
-            this.pnlRecord.Size = new System.Drawing.Size(423, 156);
+            this.pnlRecord.Size = new System.Drawing.Size(354, 156);
             this.pnlRecord.TabIndex = 2;
             // 
             // livRecords
@@ -172,7 +175,7 @@
             this.livRecords.FullRowSelect = true;
             this.livRecords.Location = new System.Drawing.Point(0, 13);
             this.livRecords.Name = "livRecords";
-            this.livRecords.Size = new System.Drawing.Size(423, 143);
+            this.livRecords.Size = new System.Drawing.Size(354, 143);
             this.livRecords.TabIndex = 1;
             this.livRecords.UseCompatibleStateImageBehavior = false;
             this.livRecords.View = System.Windows.Forms.View.Details;
@@ -180,7 +183,7 @@
             // 
             // clmRecordPos
             // 
-            this.clmRecordPos.Text = "Pos";
+            this.clmRecordPos.Text = "#";
             this.clmRecordPos.Width = 43;
             // 
             // lblRecordText
@@ -190,7 +193,7 @@
             this.lblRecordText.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblRecordText.Location = new System.Drawing.Point(0, 0);
             this.lblRecordText.Name = "lblRecordText";
-            this.lblRecordText.Size = new System.Drawing.Size(423, 13);
+            this.lblRecordText.Size = new System.Drawing.Size(354, 13);
             this.lblRecordText.TabIndex = 0;
             this.lblRecordText.Text = "Records";
             this.lblRecordText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -202,7 +205,7 @@
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 257);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(423, 64);
+            this.pnlFooter.Size = new System.Drawing.Size(354, 64);
             this.pnlFooter.TabIndex = 1;
             // 
             // livFooter
@@ -213,7 +216,7 @@
             this.livFooter.FullRowSelect = true;
             this.livFooter.Location = new System.Drawing.Point(0, 13);
             this.livFooter.Name = "livFooter";
-            this.livFooter.Size = new System.Drawing.Size(423, 51);
+            this.livFooter.Size = new System.Drawing.Size(354, 51);
             this.livFooter.TabIndex = 1;
             this.livFooter.UseCompatibleStateImageBehavior = false;
             this.livFooter.View = System.Windows.Forms.View.Details;
@@ -221,7 +224,7 @@
             // 
             // clmFooterPos
             // 
-            this.clmFooterPos.Text = "Pos";
+            this.clmFooterPos.Text = "#";
             this.clmFooterPos.Width = 46;
             // 
             // lblFooterText
@@ -231,7 +234,7 @@
             this.lblFooterText.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblFooterText.Location = new System.Drawing.Point(0, 0);
             this.lblFooterText.Name = "lblFooterText";
-            this.lblFooterText.Size = new System.Drawing.Size(423, 13);
+            this.lblFooterText.Size = new System.Drawing.Size(354, 13);
             this.lblFooterText.TabIndex = 0;
             this.lblFooterText.Text = "Footer";
             this.lblFooterText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -244,7 +247,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(423, 101);
+            this.pnlHeader.Size = new System.Drawing.Size(354, 101);
             this.pnlHeader.TabIndex = 0;
             // 
             // livHeaders
@@ -255,7 +258,7 @@
             this.livHeaders.FullRowSelect = true;
             this.livHeaders.Location = new System.Drawing.Point(0, 34);
             this.livHeaders.Name = "livHeaders";
-            this.livHeaders.Size = new System.Drawing.Size(423, 67);
+            this.livHeaders.Size = new System.Drawing.Size(354, 67);
             this.livHeaders.TabIndex = 1;
             this.livHeaders.UseCompatibleStateImageBehavior = false;
             this.livHeaders.View = System.Windows.Forms.View.Details;
@@ -263,7 +266,7 @@
             // 
             // clmHeaderPos
             // 
-            this.clmHeaderPos.Text = "Pos";
+            this.clmHeaderPos.Text = "#";
             this.clmHeaderPos.Width = 41;
             // 
             // lblHeaderText
@@ -273,7 +276,7 @@
             this.lblHeaderText.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblHeaderText.Location = new System.Drawing.Point(0, 21);
             this.lblHeaderText.Name = "lblHeaderText";
-            this.lblHeaderText.Size = new System.Drawing.Size(423, 13);
+            this.lblHeaderText.Size = new System.Drawing.Size(354, 13);
             this.lblHeaderText.TabIndex = 0;
             this.lblHeaderText.Text = "Header";
             this.lblHeaderText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -284,7 +287,7 @@
             this.pnlFileDescription.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFileDescription.Location = new System.Drawing.Point(0, 0);
             this.pnlFileDescription.Name = "pnlFileDescription";
-            this.pnlFileDescription.Size = new System.Drawing.Size(423, 21);
+            this.pnlFileDescription.Size = new System.Drawing.Size(354, 21);
             this.pnlFileDescription.TabIndex = 2;
             // 
             // lblFileName
@@ -299,6 +302,7 @@
             // livProperties
             // 
             this.livProperties.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clmPropIndex,
             this.clmPropName,
             this.clmPropType,
             this.clmPropPos,
@@ -308,10 +312,15 @@
             this.livProperties.FullRowSelect = true;
             this.livProperties.Location = new System.Drawing.Point(0, 114);
             this.livProperties.Name = "livProperties";
-            this.livProperties.Size = new System.Drawing.Size(306, 207);
+            this.livProperties.Size = new System.Drawing.Size(375, 207);
             this.livProperties.TabIndex = 2;
             this.livProperties.UseCompatibleStateImageBehavior = false;
             this.livProperties.View = System.Windows.Forms.View.Details;
+            // 
+            // clmPropIndex
+            // 
+            this.clmPropIndex.Text = "#";
+            this.clmPropIndex.Width = 30;
             // 
             // clmPropName
             // 
@@ -320,7 +329,7 @@
             // clmPropType
             // 
             this.clmPropType.Text = "Type";
-            this.clmPropType.Width = 53;
+            this.clmPropType.Width = 48;
             // 
             // clmPropPos
             // 
@@ -335,7 +344,7 @@
             // clmPropValue
             // 
             this.clmPropValue.Text = "Value";
-            this.clmPropValue.Width = 72;
+            this.clmPropValue.Width = 59;
             // 
             // label1
             // 
@@ -344,7 +353,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label1.Location = new System.Drawing.Point(0, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(306, 13);
+            this.label1.Size = new System.Drawing.Size(375, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Values";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -352,21 +361,32 @@
             // pnlProperties
             // 
             this.pnlProperties.Controls.Add(this.txtLine);
+            this.pnlProperties.Controls.Add(this.lblLineName);
             this.pnlProperties.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlProperties.Location = new System.Drawing.Point(0, 0);
             this.pnlProperties.Name = "pnlProperties";
-            this.pnlProperties.Size = new System.Drawing.Size(306, 101);
+            this.pnlProperties.Size = new System.Drawing.Size(375, 101);
             this.pnlProperties.TabIndex = 3;
             // 
             // txtLine
             // 
             this.txtLine.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLine.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLine.Location = new System.Drawing.Point(0, 0);
+            this.txtLine.Location = new System.Drawing.Point(0, 21);
             this.txtLine.Multiline = true;
             this.txtLine.Name = "txtLine";
-            this.txtLine.Size = new System.Drawing.Size(306, 101);
+            this.txtLine.Size = new System.Drawing.Size(375, 80);
             this.txtLine.TabIndex = 1;
+            // 
+            // lblLineName
+            // 
+            this.lblLineName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblLineName.Location = new System.Drawing.Point(0, 0);
+            this.lblLineName.Name = "lblLineName";
+            this.lblLineName.Size = new System.Drawing.Size(375, 21);
+            this.lblLineName.TabIndex = 2;
+            this.lblLineName.Text = "Name";
+            this.lblLineName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // livLog
             // 
@@ -456,20 +476,25 @@
             // mnuLoadFile
             // 
             this.mnuLoadFile.Name = "mnuLoadFile";
-            this.mnuLoadFile.Size = new System.Drawing.Size(130, 22);
+            this.mnuLoadFile.Size = new System.Drawing.Size(152, 22);
             this.mnuLoadFile.Text = "&Load File...";
+            this.mnuLoadFile.Click += new System.EventHandler(this.mnuLoadFile_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(130, 22);
+            this.mnuExit.Size = new System.Drawing.Size(152, 22);
             this.mnuExit.Text = "&Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            // 
+            // pfdFile
+            // 
+            this.pfdFile.FileName = "File";
             // 
             // frmFile
             // 
@@ -549,6 +574,9 @@
         private System.Windows.Forms.ColumnHeader clmRecordPos;
         private System.Windows.Forms.ColumnHeader clmFooterPos;
         private System.Windows.Forms.ColumnHeader clmHeaderPos;
+        private System.Windows.Forms.ColumnHeader clmPropIndex;
+        private System.Windows.Forms.Label lblLineName;
+        private System.Windows.Forms.OpenFileDialog pfdFile;
     }
 }
 

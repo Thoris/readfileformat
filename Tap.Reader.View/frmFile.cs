@@ -29,15 +29,9 @@ namespace Tap.Reader.View
 
         #region Methods
 
-
-
-
         public void ShowResult(Core.Reading.Results.FileValue file)
         {
             this.lblFileName.Text = file.FileName;
-
-
-
 
             ShowHeaders(file);
             ShowRecords(file);
@@ -45,6 +39,8 @@ namespace Tap.Reader.View
         }
         private void ShowHeaders(Core.Reading.Results.FileValue file)
         {
+            this.livHeaders.Items.Clear();
+
             for (int c=0; c < file.Headers.Count; c++)
             {
                 this.livHeaders.Items.Add(CreateLine(this.livHeaders, file.Headers[c]));
@@ -52,6 +48,8 @@ namespace Tap.Reader.View
         }
         private void ShowFooters(Core.Reading.Results.FileValue file)
         {
+            this.livFooter.Items.Clear();
+
             for (int c = 0; c < file.Footers.Count; c++)
             {
                 this.livFooter.Items.Add(CreateLine(this.livFooter, file.Footers[c]));
@@ -59,6 +57,8 @@ namespace Tap.Reader.View
         }
         private void ShowRecords(Core.Reading.Results.FileValue file)
         {
+            this.livRecords.Items.Clear();
+
             for (int c = 0; c < file.Records.Count; c++)
             {
                 this.livRecords.Items.Add(CreateLine(this.livRecords, file.Records[c]));
@@ -70,19 +70,20 @@ namespace Tap.Reader.View
         {
             if (line == null)
             {
+                this.lblLineName.Text = "";
                 this.txtLine.Text = "";
                 this.livProperties.Items.Clear();
                 return;
             }
 
-
+            this.lblLineName.Text = line.Name;
             this.txtLine.Text = line.Line;
 
             this.livProperties.Items.Clear();
 
             for (int c=0; c < line.Parameters.Count; c++)
             {
-                this.livProperties.Items.Add(CreateParameterLine(line.Parameters[c]));
+                this.livProperties.Items.Add(CreateParameterLine(c+1, line.Parameters[c]));
             }
         }
         private ListViewItem CreateLine(ListView control, Core.Reading.Results.LineValue line)
@@ -106,9 +107,10 @@ namespace Tap.Reader.View
 
             return item;
         }
-        private ListViewItem CreateParameterLine(Core.Reading.Results.ParameterValue parameter)
+        private ListViewItem CreateParameterLine(int index, Core.Reading.Results.ParameterValue parameter)
         {
-            ListViewItem entry = new ListViewItem(parameter.Name);
+            ListViewItem entry = new ListViewItem(index.ToString());
+            entry.SubItems.Add(parameter.Name);
             entry.SubItems.Add(parameter.Type);
             entry.SubItems.Add(parameter.Position.ToString());
             entry.SubItems.Add(parameter.ValueLenght.ToString());
@@ -170,18 +172,47 @@ namespace Tap.Reader.View
         }
         private void frmFile_Load(object sender, EventArgs e)
         {
-            Core.Configuration.ConfigurationReader configReader = new Core.Configuration.ConfigurationReader();
-            Core.Configuration.FileConfiguration config = configReader.Load("Configuration.xml");
+            try
+            {
+                Core.Configuration.ConfigurationReader configReader = new Core.Configuration.ConfigurationReader();
+                //Core.Configuration.FileConfiguration config = configReader.Load("Configuration.xml");
+                Core.Configuration.FileConfiguration config = configReader.Load("outgoing.xml");
 
 
-            Core.Reading.FileReader reader = new Core.Reading.FileReader();
-            Core.Reading.Results.FileValue file = reader.Execute("sample.txt", config);
+                Core.Reading.FileReader reader = new Core.Reading.FileReader();
+                //Core.Reading.Results.FileValue file = reader.Execute("sample.txt", config);
+                //Core.Reading.Results.FileValue file = reader.Execute("OUTGOING.CTF", config);
+                Core.Reading.Results.FileValue file = reader.Execute("OUTGOING_old.TXT", config);
 
-            _currentFile = file;
-            ShowResult(file);
+
+                _currentFile = file;
+                ShowResult(file);
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         #endregion
+
+        private void mnuLoadFile_Click(object sender, EventArgs e)
+        {
+            if (this.pfdFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Core.Configuration.ConfigurationReader configReader = new Core.Configuration.ConfigurationReader();
+                Core.Configuration.FileConfiguration config = configReader.Load("outgoing.xml");
+
+
+                Core.Reading.FileReader reader = new Core.Reading.FileReader();
+                Core.Reading.Results.FileValue file = reader.Execute(this.pfdFile.FileName, config);
+
+
+                _currentFile = file;
+                ShowResult(file);
+            }
+        }
 
     }
 }

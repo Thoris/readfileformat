@@ -10,7 +10,6 @@ namespace Tap.Reader.Core.Reading
 {
     public class FileReader
     {
-
         #region Constructors/Destructors
 
         public FileReader()
@@ -70,7 +69,7 @@ namespace Tap.Reader.Core.Reading
             {
                 string headerLine = lines[linesConfig[i].LineOffset];
 
-                list.Add(ReadLine(linesConfig[i].LineOffset + 1, headerLine, linesConfig[i].Parameters));
+                list.Add(ReadLine(linesConfig[i].LineOffset + 1, linesConfig[i].Name, headerLine, linesConfig[i].Parameters));
             }
 
 
@@ -99,7 +98,7 @@ namespace Tap.Reader.Core.Reading
             {
                 string headerLine = lines[lines.Length - 1 - linesConfig[i].LineOffset];
 
-                list.Add(ReadLine(lines.Length - linesConfig[i].LineOffset, headerLine, linesConfig[i].Parameters));
+                list.Add(ReadLine(lines.Length - linesConfig[i].LineOffset, linesConfig[i].Name, headerLine, linesConfig[i].Parameters));
             }
 
 
@@ -147,20 +146,61 @@ namespace Tap.Reader.Core.Reading
 
             #endregion
 
-            for (int c = offSetHeader; c < lines.Length - offSetFooter; c++)
+            for (int c = offSetHeader; c < lines.Length - offSetFooter - 1; c++)
             {
-                list.Add(ReadLine(c + 1, lines[c], linesConfig[0].Parameters));
+                int indexConfig = GetIndexConfigCondition(lines[c], linesConfig);
+
+                if (indexConfig == -1)
+                    continue;
+
+                list.Add(ReadLine(c + 1, linesConfig[indexConfig].Name, lines[c], linesConfig[indexConfig].Parameters));
             }
 
 
             return list;
         }
 
-        private LineValue ReadLine(int lineNumber, string line, IList<Configuration.Parameters.BaseParameter> parameters)
+
+        private bool IsValidCondition (string line, Configuration.LineConfiguration lineConfig)
+        {            
+            for (int c=0; c < lineConfig.Conditions.Count; c++)
+            {
+                if (!IsValidCondition(line, lineConfig.Conditions[c]))
+                    return false;
+            }
+
+            return true;
+        }
+        private bool IsValidCondition(string line, Configuration.Conditions.Condition condition)
+        {
+            string value = line.Substring(condition.Start - 1, condition.Size);
+
+            for (int c=0; c < condition.Values.Count; c++)
+            {
+                if (string.Compare(value, condition.Values[c], true) == 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private int GetIndexConfigCondition(string line, IList<Configuration.LineConfiguration> linesConfig)
+        {
+            for (int c=0; c < linesConfig.Count; c++)
+            {
+                if (IsValidCondition(line, linesConfig[c]))
+                    return c;
+            }
+
+            return -1;
+        }
+
+        private LineValue ReadLine(int lineNumber, string name, string line, IList<Configuration.Parameters.BaseParameter> parameters)
         {
             LineValue res = new LineValue();
             res.LineNumber = lineNumber;
             res.Line = line;
+            res.Name = name;
 
             for (int c = 0; c < parameters.Count; c++ )
             {
