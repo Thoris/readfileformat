@@ -178,6 +178,14 @@ namespace Tap.Reader.Core.Configuration
             {
                 parameter.Order = int.Parse (xmlOrder[0].InnerText);
             }
+
+
+
+            XmlNodeList xmlExpected = element.GetElementsByTagName(Parameters.ExpectedValue.KeyExpectedValue);
+            if (xmlExpected != null && xmlExpected.Count > 0)
+            {
+                parameter.ExpectedValue = ReadExpectedValue(configurationFile, xmlExpected[0]);
+            }
         }
         private Parameters.ParameterDivisor ReadParameterDivisorConfiguration(string configurationFile, XmlNode node)
         {
@@ -257,6 +265,36 @@ namespace Tap.Reader.Core.Configuration
 
             return condition;
         }
+        private Parameters.ExpectedValue ReadExpectedValue(string configurationFile, XmlNode node)
+        {
+            Parameters.ExpectedValue res = new Parameters.ExpectedValue();
+
+            XmlElement element = (XmlElement)node;
+
+            XmlNodeList xmlCharacter = element.GetElementsByTagName(Parameters.ExpectedValue.KeyCharacter);
+            if (xmlCharacter != null && xmlCharacter.Count > 0)
+            {
+                res.Character = xmlCharacter[0].InnerText;
+            }
+            XmlNodeList xmlValues = element.GetElementsByTagName(Parameters.ExpectedValue.KeyListConstants);
+            if (xmlValues != null && xmlValues.Count > 0)
+            {
+                XmlElement elementValues = (XmlElement)xmlValues[0];
+
+                XmlNodeList xmlData = elementValues.GetElementsByTagName(Parameters.ExpectedValue.KeyEntryConstant);
+
+                if (xmlData != null && xmlData.Count > 0)
+                {
+                    for (int c = 0; c < xmlData.Count; c++)
+                    {
+                        res.Constants.Add(xmlData[c].InnerText);
+                    }
+                }
+            }
+
+            return res;
+        }
+
 
         #endregion
     }

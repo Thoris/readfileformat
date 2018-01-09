@@ -29,13 +29,15 @@ namespace Tap.Reader.Core.Configuration.Parameters
         public string Type { get; set; }
         public int Order { get; set; }
 
+        public ExpectedValue ExpectedValue { get; set; }
+
         #endregion
 
         #region Constructors/Destructors
 
         public BaseParameter()
         {
-
+            ExpectedValue = new ExpectedValue();
         }
 
         #endregion
