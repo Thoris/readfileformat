@@ -65,7 +65,6 @@ namespace Tap.Reader.View
             }
         }
 
-
         private void ShowPropertiesLine(Core.Reading.Results.LineValue line)
         {
             if (line == null)
@@ -102,6 +101,18 @@ namespace Tap.Reader.View
             {
                 //item.SubItems.Add("[" + line.Parameters[c].Name + ":" + line.Parameters[c].Value + "]");
                 item.SubItems.Add(line.Parameters[c].ReadValue);
+
+                item.UseItemStyleForSubItems = false;
+
+                if (line.Parameters[c].IsError)
+                {
+                    item.SubItems[item.SubItems.Count - 1].BackColor = Color.Red;
+                }
+                else if (line.Parameters[c].IsWarning)
+                {
+                    item.SubItems[item.SubItems.Count - 1].BackColor = Color.Yellow;
+                }
+
                 item.Tag = line;
             }
 
@@ -115,6 +126,42 @@ namespace Tap.Reader.View
             entry.SubItems.Add(parameter.Position.ToString());
             entry.SubItems.Add(parameter.ValueLenght.ToString());
             entry.SubItems.Add(parameter.ReadValue);
+            if (parameter.IsError)
+            {
+                entry.UseItemStyleForSubItems = false;
+                entry.SubItems[entry.SubItems.Count - 1].BackColor = Color.Red;                
+            }
+            else if (parameter.IsWarning)
+            {
+
+                entry.UseItemStyleForSubItems = false;
+                entry.SubItems[entry.SubItems.Count - 1].BackColor = Color.Yellow;
+            }
+
+            string expected = "";
+            if (parameter.Expected != null && !string.IsNullOrEmpty (parameter.Expected.Character))
+            {
+                expected = "Full:[" + parameter.Expected.Character + "]";
+            }
+            else if (parameter.Expected != null && parameter.Expected.Constants.Count > 0)
+            {
+                expected = "[";
+
+                for (int c = 0; c < parameter.Expected.Constants.Count; c++ )
+                {
+                    if (c > 0)
+                        expected += ",";
+
+                    expected += parameter.Expected.Constants[c];
+                }
+
+                expected += "]";
+            }
+
+            entry.SubItems.Add(expected);
+
+
+         
 
             return entry;
         }
@@ -195,8 +242,6 @@ namespace Tap.Reader.View
             }
         }
 
-        #endregion
-
         private void mnuLoadFile_Click(object sender, EventArgs e)
         {
             if (this.pfdFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -213,6 +258,9 @@ namespace Tap.Reader.View
                 ShowResult(file);
             }
         }
+
+        #endregion
+
 
     }
 }

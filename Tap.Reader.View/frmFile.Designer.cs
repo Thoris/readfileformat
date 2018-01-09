@@ -73,6 +73,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pfdFile = new System.Windows.Forms.OpenFileDialog();
+            this.clmPropExpected = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitBase)).BeginInit();
             this.splitBase.Panel1.SuspendLayout();
             this.splitBase.Panel2.SuspendLayout();
@@ -252,6 +253,7 @@
             // 
             // livHeaders
             // 
+            this.livHeaders.BackgroundImageTiled = true;
             this.livHeaders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmHeaderPos});
             this.livHeaders.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -307,7 +309,8 @@
             this.clmPropType,
             this.clmPropPos,
             this.clmPropSize,
-            this.clmPropValue});
+            this.clmPropValue,
+            this.clmPropExpected});
             this.livProperties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.livProperties.FullRowSelect = true;
             this.livProperties.Location = new System.Drawing.Point(0, 114);
@@ -470,31 +473,35 @@
             this.toolStripMenuItem1,
             this.mnuExit});
             this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Size = new System.Drawing.Size(35, 20);
             this.mnuFile.Text = "&File";
             // 
             // mnuLoadFile
             // 
             this.mnuLoadFile.Name = "mnuLoadFile";
-            this.mnuLoadFile.Size = new System.Drawing.Size(152, 22);
+            this.mnuLoadFile.Size = new System.Drawing.Size(128, 22);
             this.mnuLoadFile.Text = "&Load File...";
             this.mnuLoadFile.Click += new System.EventHandler(this.mnuLoadFile_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 6);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(152, 22);
+            this.mnuExit.Size = new System.Drawing.Size(128, 22);
             this.mnuExit.Text = "&Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
             // pfdFile
             // 
             this.pfdFile.FileName = "File";
+            // 
+            // clmPropExpected
+            // 
+            this.clmPropExpected.Text = "Expected";
             // 
             // frmFile
             // 
@@ -577,6 +584,7 @@
         private System.Windows.Forms.ColumnHeader clmPropIndex;
         private System.Windows.Forms.Label lblLineName;
         private System.Windows.Forms.OpenFileDialog pfdFile;
+        private System.Windows.Forms.ColumnHeader clmPropExpected;
     }
 }
 
